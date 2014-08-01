@@ -504,7 +504,7 @@ You can also submit a pre-made request encoded as WPS XML:
 
 
 SOS 1.0
----
+-------
 
 GetCapabilities
 
