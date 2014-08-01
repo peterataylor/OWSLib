@@ -327,6 +327,9 @@ class SOSGetObservationResponse(object):
         for obs in self.observations:
             yield obs
 
+    def __getitem__(self, index):
+        return self.observations[index]
+
 class ObservationDecoder(object):
     """ Class to handle decoding different Observation types. 
         The decode method inspects the type of om:result element and 
