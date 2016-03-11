@@ -102,6 +102,11 @@ class SensorObservationService_2_0_0(object):
             off = SosObservationOffering(offering)
             self.contents[off.id] = off
             self.offerings.append(off)
+        
+        self.observed_properties = []
+        for op in self._capabilities.findall(nspath_eval('sos:contents/sos:Contents/swes:observableProperty', namespaces)):
+            observed_prop = testXMLValue(op)
+            self.observed_properties.append(observed_prop)
 
     def describe_sensor(self, outputFormat=None,
                               procedure=None,
@@ -162,6 +167,9 @@ class SensorObservationService_2_0_0(object):
         # array of dicts
         methods = self.get_operation_by_name('GetObservation').methods
         base_url = [ m['url'] for m in methods if m['type'] == method][0]
+
+        if (base_url.find('http://bom.gov.au/') != -1):
+            base_url = base_url.replace('http://bom.gov.au/','http://www.bom.gov.au/')
 
         request = {'service': 'SOS', 'version': self.version, 'request': 'GetObservation'}
 

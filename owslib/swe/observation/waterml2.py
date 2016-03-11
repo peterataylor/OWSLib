@@ -89,8 +89,9 @@ class TimeValuePair(object):
         try:
             self.value = float(value_str)
         except:
-            raise ValueError(
-                "Error parsing time series point value: %s" % value_str)
+            self.value = float('nan')
+            #raise ValueError(
+            #    "Error parsing time series point value: %s" % value_str)
     def __str__(self):
         return str(self.datetime) + "," + str(self.value)
 
@@ -105,7 +106,7 @@ class TVPMetadata(object):
             "wml2:nilReason")), nspv("xlink:href"))
         self.comment = testXMLValue(element.find(nspv(
             "wml2:comment")))
-        self.qualifier = testXMLValue(element.find(nspv(
+        self.qualifier = testXMLAttribute(element.find(nspv(
             "wml2:qualifier")), nspv("xlink:href"))
         self.processing = testXMLValue(element.find(nspv(
             "wml2:processing")), nspv("xlink:href"))
